@@ -1,0 +1,66 @@
+chooseSkill Necr
+
+; Spellcast time
+set %magicWaitTime 2s
+; Meditation time
+set %mediWaitTime 6s
+; Meditation breakpoint
+set %mediBelowMana 30
+
+; Sen wraith form - 60. Horrific Beast 75. Lich form GM
+; If Necromancy is  less than 40 cast - Curse Weapon
+start:
+
+; Curse Weapon
+if #skill >= 0 && #skill < 400
+{
+
+   event macro 15 104 ; Curse Weapon
+   wait %magicWaitTime
+   ;msg You don't have enough magery at %magicWaitTime asdf $
+}
+
+; Wraitform
+if #skill > 400  && #skill < 600
+{
+   event macro 15 116 ; Curse Weapon
+   wait %magicWaitTime
+}
+; Horrific Beast
+if #skill > 600  && #skill < 750
+{
+   event macro 15 106 ; Curse Weapon
+   wait %magicWaitTime
+}
+
+; Lich Form
+if #skill > 750 && #skill < 1000
+{
+   event macro 15 107 ; Curse Weapon
+   wait %magicWaitTime
+}
+
+; Halting Conditions
+if #skill >= 1000
+{
+   halt
+}
+
+if #MANA < %mediBelowMana {
+   gosub medi ; Goto Medi- meditate if needed return when done
+}
+goto start ; Recursive
+
+; Meditation function
+sub medi
+      ; Disarm first
+      event macro 24 2 ; Arm / Disarm Right weapon
+      wait 1s ; Finetune as needed
+      ; Meditate
+      event macro 13 46
+      wait %mediWaitTime
+      ; Arm incase we need it; Cursed Weapon for example
+      event macro 24 2 ; Arm / Disarm Right weapon
+      wait 1s ; Finetune as needed
+
+return
