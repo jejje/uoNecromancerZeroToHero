@@ -1,4 +1,8 @@
 chooseSkill Necr
+; Curse Weapon    0-40    - Pig Iron
+; Wraitform       40-60   - Pig Iron, Nox Crystal
+; Horrific Beast  60-75   - Bat Wing, Daemon Blood
+; Lich Form       75-100  - Nox Crystal, Pig Iron
 
 ; Spellcast time
 set %magicWaitTime 2s
@@ -11,7 +15,7 @@ set %mediBelowMana 30
 ; If Necromancy is  less than 40 cast - Curse Weapon
 start:
 
-; Curse Weapon
+; Curse Weapon - Pig Iron
 if #skill >= 0 && #skill < 400
 {
 
@@ -20,20 +24,21 @@ if #skill >= 0 && #skill < 400
    ;msg You don't have enough magery at %magicWaitTime asdf $
 }
 
-; Wraitform
+; Wraitform - Pig Iron, Nox Crystal
 if #skill > 400  && #skill < 600
 {
    event macro 15 116 ; Curse Weapon
    wait %magicWaitTime
+   wait 1s
 }
-; Horrific Beast
+; Horrific Beast - Bat Wing, Daemon Blood
 if #skill > 600  && #skill < 750
 {
    event macro 15 106 ; Curse Weapon
    wait %magicWaitTime
 }
 
-; Lich Form
+; Lich Form - Nox Crystal, Pig Iron
 if #skill > 750 && #skill < 1000
 {
    event macro 15 107 ; Curse Weapon
