@@ -1,9 +1,17 @@
-chooseSkill Necr
+; #################################################
+;    EasyUO Macro For Ultima Online: Necromancy
+; #################################################
 ; Curse Weapon    0-40    - Pig Iron
 ; Wraitform       40-60   - Pig Iron, Nox Crystal
 ; Horrific Beast  60-75   - Bat Wing, Daemon Blood
 ; Lich Form       75-100  - Nox Crystal, Pig Iron
 
+; Curse Weapon requires a weapon, arm a dagger
+; before you start the macro.
+
+
+; ## Setup Variables ##
+chooseSkill Necr
 ; Spellcast time
 set %magicWaitTime 2s
 ; Meditation time
@@ -11,17 +19,14 @@ set %mediWaitTime 6s
 ; Meditation breakpoint
 set %mediBelowMana 30
 
-; Sen wraith form - 60. Horrific Beast 75. Lich form GM
-; If Necromancy is  less than 40 cast - Curse Weapon
+; Start of the script
 start:
 
 ; Curse Weapon - Pig Iron
 if #skill >= 0 && #skill < 400
 {
-
    event macro 15 104 ; Curse Weapon
    wait %magicWaitTime
-   ;msg You don't have enough magery at %magicWaitTime asdf $
 }
 
 ; Wraitform - Pig Iron, Nox Crystal
@@ -36,6 +41,7 @@ if #skill > 600  && #skill < 750
 {
    event macro 15 106 ; Curse Weapon
    wait %magicWaitTime
+   wait 1s
 }
 
 ; Lich Form - Nox Crystal, Pig Iron
@@ -43,6 +49,7 @@ if #skill > 750 && #skill < 1000
 {
    event macro 15 107 ; Curse Weapon
    wait %magicWaitTime
+   wait 1s
 }
 
 ; Halting Conditions
@@ -67,5 +74,4 @@ sub medi
       ; Arm incase we need it; Cursed Weapon for example
       event macro 24 2 ; Arm / Disarm Right weapon
       wait 1s ; Finetune as needed
-
 return
