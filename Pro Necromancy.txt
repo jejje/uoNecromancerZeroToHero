@@ -2,8 +2,8 @@
 ;    EasyUO Macro For Ultima Online: Necromancy
 ; #################################################
 ; Curse Weapon    0-40    - Pig Iron
-; Wraitform       40-60   - Pig Iron, Nox Crystal
-; Horrific Beast  60-75   - Bat Wing, Daemon Blood
+; Wraitform       40-50   - Pig Iron, Nox Crystal
+; Horrific Beast  50-75   - Bat Wing, Daemon Blood
 ; Lich Form       75-100  - Nox Crystal, Pig Iron
 
 ; Curse Weapon requires a weapon, arm a dagger
@@ -30,14 +30,14 @@ if #skill >= 0 && #skill < 400
 }
 
 ; Wraitform - Pig Iron, Nox Crystal
-if #skill > 400  && #skill < 600
+if #skill > 399  && #skill < 500
 {
    event macro 15 116 ; Curse Weapon
    wait %magicWaitTime
    wait 1s
 }
 ; Horrific Beast - Bat Wing, Daemon Blood
-if #skill > 600  && #skill < 750
+if #skill > 499  && #skill < 720
 {
    event macro 15 106 ; Curse Weapon
    wait %magicWaitTime
@@ -45,7 +45,7 @@ if #skill > 600  && #skill < 750
 }
 
 ; Lich Form - Nox Crystal, Pig Iron
-if #skill > 750 && #skill < 1000
+if #skill > 719 && #skill < 1000
 {
    event macro 15 107 ; Curse Weapon
    wait %magicWaitTime
@@ -57,21 +57,28 @@ if #skill >= 1000
 {
    halt
 }
-
+;lowMana:
 if #MANA < %mediBelowMana {
    gosub medi ; Goto Medi- meditate if needed return when done
+
 }
 goto start ; Recursive
 
 ; Meditation function
 sub medi
-      ; Disarm first
-      event macro 24 2 ; Arm / Disarm Right weapon
-      wait 1s ; Finetune as needed
+      if #skill >= 0 && #skill < 400
+      {
+         ; Disarm first
+         event macro 24 2 ; Arm / Disarm Right weapon
+         wait 1s ; Finetune as needed
+      }
       ; Meditate
       event macro 13 46
       wait %mediWaitTime
-      ; Arm incase we need it; Cursed Weapon for example
-      event macro 24 2 ; Arm / Disarm Right weapon
-      wait 1s ; Finetune as needed
+      if #skill >= 0 && #skill < 400
+      {
+        ; Arm incase we need it; Cursed Weapon for example
+        event macro 24 2 ; Arm / Disarm Right weapon
+        wait 1s ; Finetune as needed
+      }
 return
